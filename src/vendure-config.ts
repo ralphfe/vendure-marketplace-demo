@@ -97,7 +97,8 @@ export const config: VendureConfig = {
             route: 'admin',
             port: serverPort + 2,
             adminUiConfig: {
-                apiPort: serverPort,
+                apiHost: process.env.API_HOST,
+                apiPort: process.env.API_PORT,
             },
         }),
     ],
