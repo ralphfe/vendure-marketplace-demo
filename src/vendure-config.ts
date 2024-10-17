@@ -16,7 +16,7 @@ const serverPort = +process.env.PORT || 3000;
 
 export const config: VendureConfig = {
     apiOptions: {
-        port: serverPort,
+        port: +(process.env.PORT || 3000),
         adminApiPath: 'admin-api',
         shopApiPath: 'shop-api',
         // The following options are useful in development mode,
@@ -44,13 +44,18 @@ export const config: VendureConfig = {
         },
     },
     dbConnectionOptions: {
-        type: 'better-sqlite3',
+        type: 'postgres',
         // See the README.md "Migrations" section for an explanation of
         // the `synchronize` and `migrations` options.
         synchronize: true,
         migrations: [path.join(__dirname, './migrations/*.+(js|ts)')],
         logging: false,
-        database: path.join(__dirname, '../vendure.sqlite'),
+        database: process.env.DB_NAME,
+        schema: process.env.DB_SCHEMA,
+        host: process.env.DB_HOST,
+        port: +(process.env.DB_PORT || 5432),
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
     },
     paymentOptions: {
         paymentMethodHandlers: [dummyPaymentHandler],
@@ -65,7 +70,7 @@ export const config: VendureConfig = {
         }),
         AssetServerPlugin.init({
             route: 'assets',
-            assetUploadDir: path.join(__dirname, '../static/assets'),
+            assetUploadDir: process.env.ASSET_UPLOAD_DIR || path.join(__dirname, '../static/assets'),
             // For local dev, the correct value for assetUrlPrefix should
             // be guessed correctly, but for production it will usually need
             // to be set manually to match your production url.
