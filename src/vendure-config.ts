@@ -16,7 +16,7 @@ const serverPort = +process.env.PORT || 3000;
 
 export const config: VendureConfig = {
     apiOptions: {
-        port: +(process.env.PORT || 3000),
+        port: serverPort,
         adminApiPath: 'admin-api',
         shopApiPath: 'shop-api',
         // The following options are useful in development mode,
@@ -53,7 +53,7 @@ export const config: VendureConfig = {
         database: process.env.DB_NAME,
         schema: process.env.DB_SCHEMA,
         host: process.env.DB_HOST,
-        port: +(process.env.DB_PORT || 5432),
+        port: +process.env.DB_PORT,
         username: process.env.DB_USERNAME,
         password: process.env.DB_PASSWORD,
     },
